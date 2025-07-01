@@ -80,6 +80,8 @@ Each of the scripts is designed to perform a unique and useful function and can 
 
 - `SEATX` - This cancels all seat reservations for all segments in the PNR.
 
+- `BAGS` - This adds extra bags for passengers on specific segments in the PNR if purchases cannot be made via ancilliary services.
+
 ## Issues/Problems
 
 Please open issues in this repository for any operational issues or bugs experienced with this platform.

@@ -1,0 +1,29 @@
+<ButtonConf ButtonName="BAGS" Description="ADD BAGS" QuickCommand="BAGS">
+  <Variable VarName="passengers">%PassengersList({LastName}/{FirstName}**{PassengerNumber})%</Variable>
+  <QuestionsBlock WindowFormTitle="Select passengers" SubmitButtonName="Next" WindowId="bc43a72f-b884-4fd5-8490-5e814a9a1868" Designer="True">
+    <TextBlock Bold="False" VarName="SBAuto_TextBlock_451d43ea-b633-4c6a-9524-88fa4522f8fe" X="10" Y="10">Choose a passenger to add bags to:</TextBlock>
+    <CheckListBox Width="400" NumberOfDisplayItems="10" SelectDefaultAll="False" SingleSelect="True" IsRadioButton="True" IsMandatory="True" Display="Value" Return="Key" VarName="passenger" TabIndex="0" X="10" Y="50">[passengers]</CheckListBox>
+  </QuestionsBlock>
+  <Variable VarName="segments">%ListOfAirSegments({DepartureDateTime(ddMMMyy hh:mm, en)} {CarrierCode} {FlightNumber} {OriginCityCode} to {DestinationCityCode}**{SegmentNumber})%</Variable>
+  <QuestionsBlock WindowFormTitle="Select segments" SubmitButtonName="Next" WindowId="bc43a72f-b884-4fd5-8490-5e814a9a1868" Designer="True">
+    <TextBlock Bold="False" VarName="SBAuto_TextBlock_451d43ea-b633-4c6a-9524-88fa4522f8fe" X="10" Y="10">Choose a segment to add bags to:</TextBlock>
+    <CheckListBox Width="400" NumberOfDisplayItems="10" SelectDefaultAll="False" SingleSelect="True" IsRadioButton="True" IsMandatory="True" Display="Value" Return="Key" VarName="segment" TabIndex="0" X="10" Y="50">[segments]</CheckListBox>
+  </QuestionsBlock>
+  <Variable VarName="bag_ssr"></Variable>
+  <ComboBox VarName="pieces" Question="How many pieces would you like to add?" Width="200" Return="Value" Display="Value" SelectedItemIndex="1">
+    <ComboBoxItem>1</ComboBoxItem>
+    <ComboBoxItem>2</ComboBoxItem>
+    <ComboBoxItem>3</ComboBoxItem>
+    <ComboBoxItem>4</ComboBoxItem>
+    <ComboBoxItem>5</ComboBoxItem>
+    <ComboBoxItem>6</ComboBoxItem>
+    <ComboBoxItem>7</ComboBoxItem>
+    <ComboBoxItem>8</ComboBoxItem>
+    <ComboBoxItem>9</ComboBoxItem>
+    <ComboBoxItem>10</ComboBoxItem>
+  </ComboBox>
+  <RunCommand StandardCommand="True">SI.P[passenger]S[segment]/XBAG*[pieces]PC 23KGS 158CM LUGGAGE</RunCommand>
+  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">ER</RunCommand>
+  <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
+</ButtonConf>
