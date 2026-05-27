@@ -1,9 +1,12 @@
-<ButtonConf ButtonName="CREATE" Description="Create new client file" QuickCommand="CREATE">
-  <TextBox VarName="name" Question="Enter the passenger's known-as name" Width="200" ToolTip="For help, execute LIST to see personnel">
+<ButtonConf ButtonName="CREATE PERSON" Description="Create new personal client file" QuickCommand="CREATE PERSON">
+  <RunCommand StandardCommand="True">CLB</RunCommand>
+  <GetString VarName="ccs"><![CDATA[\d+\s+(?!CIDBNUMBER\b)([A-Z]+(?:\s+[A-Z]+)*?)(?=\s{2,}\d+\s+|\s{2,}|END OF DISPLAY|$)]]></GetString>
+  <ComboBox VarName="cc" Question="Choose a cost centre" Width="400" ToolTip="Choose a cost centre" ElementsList="[ccs]" Return="Value" Display="Value" SelectedItemIndex="1"></ComboBox>
+  <TextBox VarName="name" Question="Enter the passenger lookup name" Width="200" ToolTip="">
     <ValidationRules>
-      <RegEx ErrorMessage="INVALID NAME"><![CDATA[(^[A-Z]+ [A-Z]+$)]]></RegEx>
+      <RegEx ErrorMessage="INVALID NAME"><![CDATA[(^[A-Z, ]+$)]]></RegEx>
     </ValidationRules>
-    <DefaultValue>FIRST LAST</DefaultValue>
+    <DefaultValue>INSERT LOOKUP NAME</DefaultValue>
   </TextBox>
   <QuestionsBlock WindowFormTitle="Create passenger file" SubmitButtonName="NEXT" WindowId="bc43a72f-b884-4fd5-8490-5e814a9a1868" Designer="True">
     <TextBlock Width="200" Bold="True" VarName="SBAuto_TextBlock_ad0c7385-77e0-4065-afbe-4aee7ceeb59f" X="10" Y="10">Title</TextBlock>
@@ -53,7 +56,7 @@
     <TextBlock Width="100" Bold="True" VarName="SBAuto_TextBlock_7d3b027b-63e2-4b44-b9ec-35b7821074f0" X="10" Y="370">Mileage 10</TextBlock>
     <TextBox VarName="m10" Width="300" ToolTip="Mileage 10" Watermark="EK123456789/UA/JL/FZ" TabIndex="8" X="110" Y="370"></TextBox>
   </QuestionsBlock>
-  <RunCommand StandardCommand="True">CFP/ATP-[name]</RunCommand>
+  <RunCommand StandardCommand="True">CFP/[cc]-[name]</RunCommand>
   <RunCommand StandardCommand="True">10N/[title]</RunCommand>
   <RunCommand StandardCommand="True">11N/[first]</RunCommand>
   <RunCommand StandardCommand="True">12N/[last]</RunCommand>

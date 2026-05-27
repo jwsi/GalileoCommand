@@ -23,7 +23,7 @@
   <BookingFileBrowser VarName="ticket_date_raw" RefreshBookingFile="False" LoadFiledFaresDetails="False">FiledFares[0].Fares[0].TrueLastDateToTicket</BookingFileBrowser>
   <DateTime VarName="ticket_date" InputDateLanguage="en" InputDateFormat="dd/MM/yyyy HH:mm:ss" DateTimeFormat="ddMMM" Language="en" AddOrRemoveDays="0" AddOrRemoveHours="0" AddOrRemoveMinutes="0" TimeZone="GMT Standard Time">[ticket_date_raw]</DateTime>
   <RunCommand StandardCommand="True">T.TAU/[ticket_date]</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.RCSTRAVEL</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
   <RunCommand StandardCommand="True">REFRESH</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>

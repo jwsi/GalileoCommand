@@ -1,0 +1,16 @@
+<ButtonConf ButtonName="CREATE CC" Description="Create new cost centre" QuickCommand="CREATE CC">
+  <TextBox VarName="cc" Question="Enter the cost centre name" Width="200" ToolTip="">
+    <ValidationRules>
+      <RegEx ErrorMessage="INVALID NAME"><![CDATA[(^[A-Z, ]+$)]]></RegEx>
+    </ValidationRules>
+    <DefaultValue>INSERT COST CENTRE NAME</DefaultValue>
+  </TextBox>
+  <RunCommand StandardCommand="True">CFB/[cc]</RunCommand>
+  <RunCommand StandardCommand="True">1N/RISC CAPITAL SERVICES</RunCommand>
+  <RunCommand StandardCommand="True">2Y/P.LONB*01432805401</RunCommand>
+  <RunCommand StandardCommand="True">3Y/MT.TRAVEL@RISC.SERVICES</RunCommand>
+  <RunCommand StandardCommand="True">4Y/W.LOWER GRANARY*BROCKHAMPTON*HEREFORD*GB*P/HR1 4SE</RunCommand>
+  <RunCommand StandardCommand="True">4Y/D.LOWER GRANARY*BROCKHAMPTON*HEREFORD*GB*P/HR1 4SE</RunCommand>
+  <RunCommand StandardCommand="True">CE</RunCommand>
+  <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
+</ButtonConf>

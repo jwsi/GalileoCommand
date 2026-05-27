@@ -1,20 +1,32 @@
 <ButtonConf ButtonName="ADD" Description="Add a passenger to a PNR" QuickCommand="ADD">
-  <TextBox VarName="name" Question="Enter the passenger's name" Width="200" ToolTip="For help, execute LIST to see personnel">
-    <ValidationRules>
-      <RegEx ErrorMessage="INVALID NAME"><![CDATA[(^[A-Z]+ [A-Z]+$)]]></RegEx>
-    </ValidationRules>
-    <DefaultValue>FIRST LAST</DefaultValue>
-  </TextBox>
+  <RunCommand StandardCommand="True">CLB</RunCommand>
+  <GetString VarName="ccs"><![CDATA[\d+\s+(?!CIDBNUMBER\b)([A-Z]+(?:\s+[A-Z]+)*?)(?=\s{2,}\d+\s+|\s{2,}|END OF DISPLAY|$)]]></GetString>
+  <ComboBox VarName="cc" Question="Choose a cost centre" Width="400" ToolTip="Choose a cost centre" ElementsList="[ccs]" Return="Value" Display="Value" SelectedItemIndex="1"></ComboBox>
   <BookingFileBrowser VarName="passenger_count" RefreshBookingFile="False" LoadFiledFaresDetails="False">Passengers.Count</BookingFileBrowser>
   <ArithmeticalOperation VarName="number">[passenger_count]+1</ArithmeticalOperation>
+  <RunCommand StandardCommand="True">CLP/[cc]</RunCommand>
+  <GetString VarName="names"><![CDATA[\d+\s+([A-Z]+(?:\s+[A-Z]+)+)]]></GetString>
+  <ComboBox VarName="name" Question="Choose a passenger" Width="400" ToolTip="Choose a passenger" ElementsList="[names]" Return="Value" Display="Value" SelectedItemIndex="1"></ComboBox>
+  <BookingFileBrowser VarName="ccpnrraw" RefreshBookingFile="False" LoadFiledFaresDetails="False">Remarks[0].Text</BookingFileBrowser>
+  <ShowMessage ShowInTerminal="True" ClearScreen="True">[ccpnrraw]</ShowMessage>
+  <GetString VarName="ccpnr"><![CDATA[COST CENTRE:\s*([A-Z]+(?:\s+[A-Z]+)*)]]></GetString>
   <ConditionalAction Condition="[number]==1">
     <True>
-      <RunCommand StandardCommand="True">C*ATP</RunCommand>
+      <RunCommand StandardCommand="True">C*[cc]</RunCommand>
       <RunCommand StandardCommand="True">CM/</RunCommand>
+      <RunCommand StandardCommand="True">NP.H**AGYRG-COST CENTRE: [cc]</RunCommand>
     </True>
-    <False></False>
+    <False>
+      <ConditionalAction Condition="[cc]==[ccpnr]">
+        <True></True>
+        <False>
+          <ShowMessage ShowInTerminal="True" ClearScreen="True">ONLY ONE COST CENTRE PER PNR IS PERMITTED - TRY AGAIN</ShowMessage>
+          <Exit />
+        </False>
+      </ConditionalAction>
+    </False>
   </ConditionalAction>
-  <RunCommand StandardCommand="True">C*ATP-[name]</RunCommand>
+  <RunCommand StandardCommand="True">C*[cc]-[name]</RunCommand>
   <GetString VarName="title"><![CDATA[10N\/(.*)]]></GetString>
   <GetString VarName="first"><![CDATA[11N\/(.*)]]></GetString>
   <GetString VarName="last"><![CDATA[12N\/(.*)]]></GetString>

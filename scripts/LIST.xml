@@ -1,3 +1,0 @@
-<ButtonConf ButtonName="LIST" Description="Lists personnel files for relevant business" QuickCommand="LIST">
-  <RunCommand StandardCommand="True">CLP/ATP</RunCommand>
-</ButtonConf>
