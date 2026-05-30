@@ -34,7 +34,7 @@ The entire system is accompanied with easy to use graphical interfaces and takes
 
 Before using the system you must have:
 
-- An agreement in place with AERTicket UK including a selective access agreement between your PCCs and theirs (specifically AERTicket PCC 74QP). This agreement is required to faciliate queueing PNRs onto AERTicket's PCCs for ticketing. It must be fully permissive.
+- An agreement in place with AERTicket UK including a selective access agreement between your PCCs and theirs (specifically AERTicket PCC `74QP`). This agreement is required to faciliate queueing PNRs onto AERTicket's PCCs for ticketing. It must be fully permissive.
 - Access to Smartpoint Desktop on Windows with valid login credentials to Galileo GDS.
 - An agency file conforming to the format defined in `./formats/agencyfileformat.txt`. See agency file setup below for more info.
 - Masking removed by Travelport for your PCC.
