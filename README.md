@@ -48,14 +48,21 @@ Before using the system you must have:
 3) Execute `C@2Y/P.LONT*01432123456` where you replace `01432123456` with your agency's landline telephone number.
 4) Execute `C@3Y/F.S` to ensure all PNRs made by GC are set as cash payment.
 
+### Installation
+
+1) Download the repository as a zip file.
+2) Extract the file.
+
 #### Cost centre file setup
 
 Traveller profiles are located within cost centres. These cost centres are created automatically by GC. In order to set these up specific to your agency, edit `CREATE CC.xml` within the scripts folder. Lines 9-13 should be replaced with your travel agency information.
 
-#### Installation
+#### AERTicket Customer Number setup
 
-1) Download the repository as a zip file.
-2) Extract the file.
+To ensure billing is correct, ensure your AERTicket customer number is submitted on PNRs when ticketing. To do this, edit TICKET.xml in the scripts folder. Set `CUSTOMERNUMBER` on line 32 to be your AERTICKET customer number.
+
+#### Installing SB Scripts
+
 3) In Smartpoint Desktop open up the Smart Buttons menu (it has a "SB" icon).
 4) Click import.
 5) Browse to the scripts located within the extracted files you just downloaded and add each script one at a time.
