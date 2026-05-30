@@ -47,17 +47,29 @@
     <False></False>
   </ConditionalAction>
   <JsSnippet VarName="age">
-    <Code><![CDATA[birthDate = new Date([dob]);
-currentDate = new Date();
+    <Code><![CDATA[
+    
+    var start = new Date().getTime();
+	while (typeof dob == "undefined") {
+	    var now = new Date().getTime();
+	    if ((now - start) > 3000) {
+	    	break;
+	    }
+	}
+    
+	birthDate = new Date(dob);
+	currentDate = new Date();
 
-var years = (currentDate.getFullYear() - birthDate.getFullYear());
-
-if (currentDate.getMonth() < birthDate.getMonth() || 
-    currentDate.getMonth() == birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()) {
-    years--;
-}
-
-return years.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});]]></Code>
+	var years = (currentDate.getFullYear() - birthDate.getFullYear());
+	
+	if (currentDate.getMonth() < birthDate.getMonth() || 
+	    currentDate.getMonth() == birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()) {
+	    years--;
+	}
+	
+	return years.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+	
+	]]></Code>
   </JsSnippet>
   <ConditionalAction Condition="[age]&gt;11">
     <True>
@@ -77,15 +89,15 @@ return years.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false
   <RunCommand StandardCommand="True">CMP/P-[number]</RunCommand>
   <ConditionalAction Condition="[middle]==">
     <True>
-      <RunCommand StandardCommand="True">SI.P[number]/SSRDOCSYYHK1/////[dob]/[sex]//[last]/[first]</RunCommand>
-      <RunCommand StandardCommand="True">SI.P[number]/SSRDOCSYYHK1/P/[pp_issuer]/[pp_number]/[nationality]/[dob]/[sex]/[pp_expiry]/[last]/[first]</RunCommand>
+      <RunCommand StandardCommand="True">NP.P[number]/SSRDOCSYYHK1/////[dob]/[sex]//[last]/[first]</RunCommand>
+      <RunCommand StandardCommand="True">NP.P[number]/SSRDOCSYYHK1/P/[pp_issuer]/[pp_number]/[nationality]/[dob]/[sex]/[pp_expiry]/[last]/[first]</RunCommand>
     </True>
     <False>
-      <RunCommand StandardCommand="True">SI.P[number]/SSRDOCSYYHK1/////[dob]/[sex]//[last]/[first]/[middle]</RunCommand>
-      <RunCommand StandardCommand="True">SI.P[number]/SSRDOCSYYHK1/P/[pp_issuer]/[pp_number]/[nationality]/[dob]/[sex]/[pp_expiry]/[last]/[first]/[middle]</RunCommand>
+      <RunCommand StandardCommand="True">NP.P[number]/SSRDOCSYYHK1/////[dob]/[sex]//[last]/[first]/[middle]</RunCommand>
+      <RunCommand StandardCommand="True">NP.P[number]/SSRDOCSYYHK1/P/[pp_issuer]/[pp_number]/[nationality]/[dob]/[sex]/[pp_expiry]/[last]/[first]/[middle]</RunCommand>
     </False>
   </ConditionalAction>
-  <RunCommand StandardCommand="True">SI.P[number]/SSRCTCMYYHK1/[mobile]/EN</RunCommand>
-  <RunCommand StandardCommand="True">SI.P[number]/SSRCTCEYYHK1/[email]/EN</RunCommand>
+  <RunCommand StandardCommand="True">NP.P[number]/SSRCTCMYYHK1/[mobile]/EN</RunCommand>
+  <RunCommand StandardCommand="True">NP.P[number]/SSRCTCEYYHK1/[email]/EN</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
 </ButtonConf>

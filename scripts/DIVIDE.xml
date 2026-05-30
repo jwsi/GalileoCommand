@@ -1,4 +1,4 @@
-<ButtonConf ButtonName="DIVIDE" Description="DIVIDE PNR" QuickCommand="DIVIDE">
+<ButtonConf TerminalInteraction="False" ButtonName="DIVIDE" Description="DIVIDE PNR" QuickCommand="DIVIDE">
   <Variable VarName="passengers">%PassengersList({LastName}/{FirstName}**{PassengerNumber})%</Variable>
   <CheckListBox Width="200" SelectDefaultAll="False" SingleSelect="False" IsRadioButton="False" IsMandatory="True" Display="Value" Return="Key" VarName="divided_passengers" Question="Select Passengers to Divide from PNR">
   	[passengers]
@@ -18,12 +18,12 @@
     </Action>
   </ForEach>
   <RunCommand StandardCommand="True">FXALL</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
   <RunCommand StandardCommand="True">DP[divide_string]</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">F</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
   <RunCommand StandardCommand="True">REINSTATE</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="False">COMPLETE</ShowMessage>

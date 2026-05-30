@@ -6,11 +6,11 @@
     <DefaultValue>INSERT COST CENTRE NAME</DefaultValue>
   </TextBox>
   <RunCommand StandardCommand="True">CFB/[cc]</RunCommand>
-  <RunCommand StandardCommand="True">1N/RISC CAPITAL SERVICES</RunCommand>
-  <RunCommand StandardCommand="True">2Y/P.LONB*01432805401</RunCommand>
-  <RunCommand StandardCommand="True">3Y/MT.TRAVEL@RISC.SERVICES</RunCommand>
-  <RunCommand StandardCommand="True">4Y/W.LOWER GRANARY*BROCKHAMPTON*HEREFORD*GB*P/HR1 4SE</RunCommand>
-  <RunCommand StandardCommand="True">4Y/D.LOWER GRANARY*BROCKHAMPTON*HEREFORD*GB*P/HR1 4SE</RunCommand>
+  <RunCommand StandardCommand="True">1N/INSERT BUSINESS NAME HERE</RunCommand>
+  <RunCommand StandardCommand="True">2Y/P.LONB*01432123456</RunCommand>
+  <RunCommand StandardCommand="True">3Y/MT.TRAVEL@MYDOMAIN.COM</RunCommand>
+  <RunCommand StandardCommand="True">4Y/W.FIRSTLINE*SECONDLINE*CITY*GB*P/SW1A 2AA</RunCommand>
+  <RunCommand StandardCommand="True">4Y/D.FIRSTLINE*SECONDLINE*CITY*GB*P/SW1A 2AA</RunCommand>
   <RunCommand StandardCommand="True">CE</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
 </ButtonConf>

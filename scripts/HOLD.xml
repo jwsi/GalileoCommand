@@ -1,4 +1,102 @@
 <ButtonConf ButtonName="HOLD" Description="Hold the flight" QuickCommand="HOLD">
+  <BookingFileBrowser VarName="notepad" RefreshBookingFile="False" LoadFiledFaresDetails="False">Remarks</BookingFileBrowser>
+  <BookingFileBrowser VarName="segments" RefreshBookingFile="False" LoadFiledFaresDetails="False">AirSegments</BookingFileBrowser>
+  <BookingFileBrowser VarName="seg_count" RefreshBookingFile="False" LoadFiledFaresDetails="False">AirSegments.Count</BookingFileBrowser>
+  <ConditionalAction Condition="[seg_count]==0">
+    <True>
+      <ShowMessage ShowInTerminal="True" ClearScreen="True">AIR SEGMENTS MUST BE DEFINED TO HOLD!</ShowMessage>
+      <Exit />
+    </True>
+    <False></False>
+  </ConditionalAction>
+  <JsSnippet VarName="airlines">
+    <Code><![CDATA[
+	var start = new Date().getTime();
+	while (typeof segments == "undefined") {
+	    var now = new Date().getTime();
+	    if ((now - start) > 3000) {
+	    	break;
+	    }
+	}
+    
+    <!--For some reason smartpoint treats lists as ; separated strings :(-->
+    const airlines = new Set();
+	
+	const segment_list = segments.split(";");
+	
+	segment_list.forEach(segment => {
+	    airlines.add(segment.slice(0,2));
+	});
+	
+	return Array.from(airlines).join(';');
+	]]></Code>
+  </JsSnippet>
+  <ShowMessage ShowInTerminal="True">[notepad]</ShowMessage>
+  <JsSnippet VarName="si_list">
+    <Code><![CDATA[
+    
+    var start = new Date().getTime();
+	while (typeof notepad == "undefined") {
+	    var now = new Date().getTime();
+	    if ((now - start) > 3000) {
+	    	break;
+	    }
+	}
+    
+    si_list = new Array();
+    
+    const notepad_list = notepad.split(';');
+    const airlines_list = airlines.split(';');
+    
+    const ssr_regex = new RegExp("(P\\d+)\/SSRDOCSYYHK1\/(.+)$");
+	const ctcm_regex = new RegExp("(P\\d+)\/SSRCTCMYYHK1\/(.+)$");
+	const ctce_regex = new RegExp("(P\\d+)\/SSRCTCEYYHK1\/(.+)$");
+    
+    notepad_list.forEach(entry => {
+    	const ssr_regex_match = ssr_regex.exec(entry);
+    	const ctcm_regex_match = ctcm_regex.exec(entry);
+    	const ctce_regex_match = ctce_regex.exec(entry);
+    	if (ssr_regex_match) {
+    		airlines_list.forEach(airline => {
+    			si_list.push(ssr_regex_match[1] + '/SSRDOCS' + airline + 'HK1/' + ssr_regex_match[2]);
+    		});
+    	} else if (ctcm_regex_match) {
+    		airlines_list.forEach(airline => {
+    			si_list.push(ctcm_regex_match[1] + '/SSRCTCM' + airline + 'HK1/' + ctcm_regex_match[2]);
+    		});
+    	} else if (ctce_regex_match) {
+    		airlines_list.forEach(airline => {
+    			si_list.push(ctce_regex_match[1] + '/SSRCTCE' + airline + 'HK1/' + ctce_regex_match[2]);
+    		});
+    	}
+    });
+    
+    return si_list.join(';');
+    
+    ]]></Code>
+  </JsSnippet>
+  <ForEach>
+    <ElementsList>[si_list]</ElementsList>
+    <Action>
+      <RunCommand ClearScreen="False" StandardCommand="True">SI.[@]</RunCommand>
+    </Action>
+  </ForEach>
+  <JsSnippet VarName="notepad_length">
+    <Code><![CDATA[
+
+    var start = new Date().getTime();
+	while (typeof notepad == "undefined") {
+	    var now = new Date().getTime();
+	    if ((now - start) > 3000) {
+	    	break;
+	    }
+	}
+    
+    return notepad.split(';').length;
+    
+    ]]></Code>
+  </JsSnippet>
+  <RunCommand StandardCommand="True">NP.2-[notepad_length]@</RunCommand>
   <BookingFileBrowser VarName="segments" RefreshBookingFile="False" LoadFiledFaresDetails="False">AirSegments.Count</BookingFileBrowser>
   <ConditionalAction Condition="[segments]&gt;1">
     <True>
@@ -23,8 +121,8 @@
   <BookingFileBrowser VarName="ticket_date_raw" RefreshBookingFile="False" LoadFiledFaresDetails="False">FiledFares[0].Fares[0].TrueLastDateToTicket</BookingFileBrowser>
   <DateTime VarName="ticket_date" InputDateLanguage="en" InputDateFormat="dd/MM/yyyy HH:mm:ss" DateTimeFormat="ddMMM" Language="en" AddOrRemoveDays="0" AddOrRemoveHours="0" AddOrRemoveMinutes="0" TimeZone="GMT Standard Time">[ticket_date_raw]</DateTime>
   <RunCommand StandardCommand="True">T.TAU/[ticket_date]</RunCommand>
-  <RunCommand StandardCommand="True">R.RCSTRAVEL</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
-  <RunCommand StandardCommand="True">REFRESH</RunCommand>
+  <RunCommand ClearScreen="False" StandardCommand="True">REFRESH</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
 </ButtonConf>

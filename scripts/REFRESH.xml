@@ -1,5 +1,23 @@
 <ButtonConf ButtonName="REFRESH" Description="Refresh PNR" QuickCommand="REFRESH">
   <BookingFileBrowser VarName="reference" RefreshBookingFile="False" LoadFiledFaresDetails="False">RecordLocator</BookingFileBrowser>
   <RunCommand StandardCommand="True">I</RunCommand>
+  <ShowMessage ShowInTerminal="False">
+REFRESHING PNR
+ - This process will take approximately 10s.
+ - Do not attempt to issue additional commands during this time.
+ - The program will block IO during this time to prevent collisions.
+  </ShowMessage>
+  <JsSnippet VarName="">
+    <Code><![CDATA[
+    var start = new Date().getTime();
+    var now = new Date().getTime();
+    while ((now - start) < 10000) {
+    	// Keep running until 10s have passed
+    	var now = new Date().getTime();
+	}
+	return 0;
+    ]]></Code>
+  </JsSnippet>
   <RunCommand StandardCommand="True">*[reference]</RunCommand>
+  <ShowMessage ShowInTerminal="True" ClearScreen="True">PNR REFRESHED</ShowMessage>
 </ButtonConf>

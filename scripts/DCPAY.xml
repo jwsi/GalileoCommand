@@ -37,7 +37,7 @@
     <TextBox VarName="security" Width="200" ToolTip="Security Code" Watermark="0000" TabIndex="2" X="210" Y="130"></TextBox>
   </QuestionsBlock>
   <RunCommand StandardCommand="True">ZF/CC/AX[card_number]/D[expiry]/S[security]</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
   <ShowMessage ShowInTerminal="True" ClearScreen="True">COMPLETE</ShowMessage>
 </ButtonConf>

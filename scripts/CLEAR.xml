@@ -1,0 +1,3 @@
+<ButtonConf ButtonName="CLEAR" Description="Clear Terminal Screen" QuickCommand="CLEAR">
+  <ShowMessage ShowInTerminal="True" ClearScreen="True">CLEARED</ShowMessage>
+</ButtonConf>

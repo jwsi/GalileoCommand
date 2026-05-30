@@ -1,6 +1,6 @@
 <ButtonConf ButtonName="REINSTATE" Description="Re-instate an expired fare" QuickCommand="REINSTATE">
   <RunCommand StandardCommand="True">FXALL</RunCommand>
   <RunCommand StandardCommand="True">FQ-AER01</RunCommand>
-  <RunCommand StandardCommand="True">R.ATP</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
 </ButtonConf>

@@ -1,0 +1,5 @@
+<ButtonConf ButtonName="SEATX" Description="CLEAR SEAT INFORMATION" QuickCommand="SEATX">
+  <RunCommand StandardCommand="True">S.@</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
+  <RunCommand StandardCommand="True">ER</RunCommand>
+</ButtonConf>

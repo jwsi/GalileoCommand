@@ -1,4 +1,25 @@
-<ButtonConf EasyMode="False" ButtonName="TICKET" Description="Ticket this PNR" QuickCommand="TICKET">
+<ButtonConf ButtonName="TICKET" Description="Ticket this PNR" QuickCommand="TICKET">
+  <BookingFileBrowser VarName="seg_count" RefreshBookingFile="False" LoadFiledFaresDetails="False">AirSegments.Count</BookingFileBrowser>
+  <ConditionalAction Condition="[seg_count]==0">
+    <True>
+      <ShowMessage ShowInTerminal="True" ClearScreen="True">AIR SEGMENTS MUST BE DEFINED TO TICKET!</ShowMessage>
+      <Exit />
+    </True>
+    <False></False>
+  </ConditionalAction>
+  <BookingFileBrowser VarName="segments" RefreshBookingFile="False" LoadFiledFaresDetails="False">AirSegments</BookingFileBrowser>
+  <ForEach>
+    <ElementsList>[segments]</ElementsList>
+    <Action>
+      <ConditionalAction Condition="[@].SegmentStatusCode!=HK">
+        <True>
+          <ShowMessage ShowInTerminal="True" ClearScreen="True">HOLD COMMAND MUST BE EXECUTED PRIOR TO TICKETING!</ShowMessage>
+          <Exit />
+        </True>
+        <False></False>
+      </ConditionalAction>
+    </Action>
+  </ForEach>
   <BookingFileBrowser VarName="private" RefreshBookingFile="False" LoadFiledFaresDetails="False">FiledFares[0].Fares[0].IsAgencyPrivateFare</BookingFileBrowser>
   <ConditionalAction Condition="[private]==True">
     <True>
@@ -13,9 +34,9 @@
   <RunCommand StandardCommand="True">NP.AGYNOPRCG</RunCommand>
   <DateTime VarName="today_date" DateTimeFormat="ddMMM" Language="en" AddOrRemoveDays="0" AddOrRemoveHours="0" AddOrRemoveMinutes="0" TimeZone="GMT Standard Time"></DateTime>
   <RunCommand StandardCommand="True">T.@TAU/[today_date]</RunCommand>
-  <RunCommand StandardCommand="True">R.RCSTRAVEL</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">ER</RunCommand>
-  <RunCommand StandardCommand="True">R.RCSTRAVEL</RunCommand>
+  <RunCommand StandardCommand="True">R.GC</RunCommand>
   <RunCommand StandardCommand="True">QEB/74QP/40</RunCommand>
-  <ShowMessage ShowInTerminal="True">PNR SUBMITTED FOR TICKETING</ShowMessage>
+  <ShowMessage ShowInTerminal="True">PNR SUBMITTED - DO NOT RE-OPEN PNR UNTIL TICKETING COMPLETED!</ShowMessage>
 </ButtonConf>
