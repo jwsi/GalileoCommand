@@ -11,7 +11,7 @@ This system is designed to serve as a complete travel management platform for sm
 	- Date of birth
 	- Phone Number
 	- Email
-	- Frequent flier (mileage) information
+	- Frequent flyer (mileage) information
 - Creation, modification and deletion of traveller profiles
 - Creation of cost centres and association of traveller profiles within cost centres
 - Propagation of cost centre names to AERTicket UK invoices
@@ -59,7 +59,7 @@ Traveller profiles are located within cost centres. These cost centres are creat
 
 #### AERTicket Customer Number setup
 
-To ensure billing is correct, ensure your AERTicket customer number is submitted on PNRs when ticketing. To do this, edit TICKET.xml in the scripts folder. Set `CUSTOMERNUMBER` on line 32 to be your AERTICKET customer number.
+To ensure billing is correct, ensure your AERTicket customer number is submitted on PNRs when ticketing. To do this, edit `TICKET.xml` in the scripts folder. Set `CUSTOMERNUMBER` on line 32 to be your AERTICKET customer number.
 
 #### Installing SB Scripts
 
@@ -80,9 +80,9 @@ Each of the scripts is designed to perform a unique and useful function and can 
 
 - `EDIT` - This edits an existing traveller profile. It will bring up a user-friendly GUI to allow one to modify existing traveller information.
 
-- `ADD` - This brings up a GUI for entering a traveller profile name. Once entered it will add all relevant information for that traveller into the PNR including name, SSRDOCS, mileage information and so on.
+- `ADD` - This brings up a GUI for entering a traveller profile name. Once entered it will add all relevant information for that traveller into the PNR including name, API info, mileage information and so on. The API info is formally added into the PNR at the holding stage to ensure segment-specific APIs.
 
-- `HOLD` - This will hold all segments in the currently displayed PNR and request the creation of a vendor locator for the PNR. *This must be done prior to any ticketing operation.* This script also adds in SSRDOCS for passengers in question in formats specific to each segment.
+- `HOLD` - This will hold all segments in the currently displayed PNR and request the creation of a vendor locator for the PNR. *This must be done prior to any ticketing operation.* This script also adds in SSRDOCS/API for passengers in question in formats specific to each segment.
 
 - `REFRESH` - This simply refreshes the PNR to ensure the most up to date information is displayed. It is executed automatically after holding to ensure vendor locator information is included on the PNR.
 
@@ -90,7 +90,7 @@ Each of the scripts is designed to perform a unique and useful function and can 
 
 - `TICKET` - This automatically adds in AERTicket UK directives for ticketing into the notepad, determines whether the fare is private or public and then submits to the ticketing queue at AERTicket.
 
-- `DCPAY` - This organises payment and booking for all direct carriers (EasyJet, RyanAir etc...). This should be executed once all segments are present in the PNR. It allows for direct payment via AMEX cards and itinerary information and receipts will go to the email address defined on line 11 in CREATE CC.xml.
+- `DCPAY` - This organises payment and booking for all direct carriers (EasyJet, RyanAir etc...). This should be executed once all segments are present in the PNR. It allows for direct payment via AMEX cards and itinerary information and receipts will go to the email address defined on line 11 in `CREATE CC.xml`.
 
 - `DIVIDE` - This brings up a GUI which allows a user to select which passengers to divide out of the existing PNR. This is a useful command when travellers itineraries are no longer identical and need to be changed separately. Upon successful execution, a new linked PNR will be created for the divided passenger.
 
